@@ -25,7 +25,7 @@ try{
     // Require Db connection
     require("./db/db");
 
-    app.use('/images', express.static(path.join('images')));
+    app.use('/images', express.static(path.join(__dirname,'./images')));
 
     app.get("/movies", getMovies);
     app.post("/movies", imageUpload, addMovies);
