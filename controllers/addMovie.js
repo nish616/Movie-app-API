@@ -7,7 +7,7 @@ async function addNote(req, res) {
         // console.log(req.file.filename);
 
         const { name , year, language } = req.body;
-        const imageUrl = 'http://localhost:3000/images/' + req.file.filename;
+        const imageUrl = 'https://murmuring-tor-76353.herokuapp.com/images/' + req.file.filename;
         const newMovie = new Movie({
             name : name,
             year : year,
