@@ -9,7 +9,7 @@ const addMovies = require('./controllers/addMovie');
 const getMovies = require('./controllers/getMovie');
 
 // Require middlewears
-const imageUpload = require('./middlewears/imageUpload')
+const fileUpload = require('./middlewears/fileUpload')
 
 const app = express();
 
@@ -25,10 +25,10 @@ try{
     // Require Db connection
     require("./db/db");
 
-    app.use('/images', express.static(path.join(__dirname,'./images')));
+    app.use('/files', express.static(path.join(__dirname,'./files')));
 
     app.get("/movies", getMovies);
-    app.post("/movies", imageUpload, addMovies);
+    app.post("/movies", fileUpload, addMovies);
 
 } catch(e){
     console.log(e);

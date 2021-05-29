@@ -2,23 +2,30 @@ const Movie = require('../models/movie');
 
 async function addNote(req, res) {
     try {
-
-        // console.log(req.body);
-        // console.log(req.file.filename);
-
         const { name , year, language } = req.body;
-        //const imageUrl = 'http://localhost:3000/images/' + req.file.filename;
-        const imageUrl = 'https://murmuring-tor-76353.herokuapp.com/images/' + req.file.filename;
-        const newMovie = new Movie({
+        console.log(req.files);
+        let imageUrl = '',videoUrl = '';
+        if(req.files){
+            // imageUrl = 'http://localhost:3000/files/' + req.files.image[0].filename;
+            // videoUrl = 'http://localhost:3000/files/' + req.files.video[0].filename;
+            
+            imageUrl = 'https://murmuring-tor-76353.herokuapp.com/files/' + req.files.image[0].filename;
+            videoUrl = 'https://murmuring-tor-76353.herokuapp.com/files/' + req.files.video[0].filename;
+        }
+        
+        const newMovie = {
             name : name,
             year : year,
             language : language,
-            imageUrl : imageUrl
-        });
+            imageUrl : imageUrl,
+            videoUrl : videoUrl
+        };
 
-        await newMovie.save();
+        const movie = new Movie(newMovie);
         
-        return res.send({sucess : true});
+        await movie.save();
+        
+        return res.send({sucess : true , result : newMovie});
     } catch (err) {
        return res.send({sucess : false, error: err});
     }
